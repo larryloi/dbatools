@@ -1,0 +1,22 @@
+DEFAULT_CONF: &DEFAULT_CONF
+  port: 3306
+  charset: utf8mb4
+  db_name: mysql
+  host: 192.168.152.201
+
+
+databases:
+- db:
+    <<: *DEFAULT_CONF
+    #host: 0.0.0.0
+    username: root
+    password: root
+    port: 3316
+
+- db:
+    <<: *DEFAULT_CONF
+    #host: 0.0.0.0
+    username: root
+    password: root
+    port: 3317
+

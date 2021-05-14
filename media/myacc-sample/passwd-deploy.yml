@@ -1,0 +1,18 @@
+DEFAULT_HOST: &DEFAULT_HOST
+  host: "%"
+
+DEFAULT_PASSWORD: &DEFAULT_PASSWORD
+  password: "*9D278FBA9F19BE75C87A93995CE8DFF277700B44"
+
+passwd_deploy:
+- user:
+    <<: *DEFAULT_HOST
+    <<: *DEFAULT_PASSWORD
+    name: "ops_dbajames"
+    password: "*E9D057131C22A0D76B4AAD2C61655BDFA706E637"
+
+- user:
+    <<: *DEFAULT_HOST
+    <<: *DEFAULT_PASSWORD
+    name: "ops_asben"
+    password: "*E9D057131C22A0D76B4AAD2C61655BDFA706E637"

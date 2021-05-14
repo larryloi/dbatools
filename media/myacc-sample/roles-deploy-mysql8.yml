@@ -1,0 +1,26 @@
+DEFAULT_PERMISSIONS: &DEFAULT_PERMISSIONS
+  permissions: ['SELECT', 'INSERT','UPDATE','DELETE']
+
+DEFAULT_HOST: &DEFAULT_HOST
+  host: "%"
+
+roles_deploy:
+- role:
+    <<: *DEFAULT_HOST
+    name: "dba_role"
+    grants:
+      - grant:
+          db: "rothorn"
+          <<: *DEFAULT_PERMISSIONS
+      - grant:
+          db: "*"
+          permissions: ['ALL']
+
+- role:
+    <<: *DEFAULT_HOST
+    name: "as_role"
+    grants:
+      - grant:
+          db: "rothorn_%"
+          <<: *DEFAULT_PERMISSIONS
+          permissions: ['SELECT']

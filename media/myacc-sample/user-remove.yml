@@ -1,0 +1,15 @@
+DEFAULT_HOST: &DEFAULT_HOST
+  host: "%"
+
+users_remove:
+- user:
+    <<: *DEFAULT_HOST
+    name: "ops_dbajames"
+
+- user:
+    <<: *DEFAULT_HOST
+    name: "ops_dslarry"
+
+- user:
+    <<: *DEFAULT_HOST
+    name: "ops_asben"

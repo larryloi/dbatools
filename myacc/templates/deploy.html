@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <title>
+                Python script
+            </title>
+        </head>
+    <body>
+
+        <form action="/deploy/" method="post">
+            {% csrf_token %}
+            Databases file:
+            <input type="text" name="param1" required><br><br>
+            Deployment file:
+            <input type="text" name="param2" required><br><br>
+            <input type="submit" value="Deploy"> <br><br>
+            <data>{{data1}}<data> <br><br>
+
+        </form>
+    </body>
+</html>

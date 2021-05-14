@@ -1,0 +1,98 @@
+version: "3"
+   
+services:
+  web:
+    #build: .
+    image: "${REPO_PATH}${IMAGE}:${TAG}"
+    env_file:
+      - .env
+    command: python manage.py runserver 0.0.0.0:8000
+    #command: >
+    #    bash -c "python manage.py migrate
+    #    && python manage.py runserver 0.0.0.0:8000"
+    #volumes:
+    #  - .:/app
+    ports:
+      - "8000:8000"
+    networks:
+      - platform_integration
+
+  mysql5a:
+    image: mysql:5.7.24
+    env_file:
+      - .env
+    container_name: "${MYSQL5a_HOST}"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: "${MYSQL5a_DATABASE}"
+      SSL_MODE: "DISABLE"
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db/mysql/db.conf.5.x:/etc/mysql/conf.d
+      - ./db/mysql/db.init.5.x/dst:/docker-entrypoint-initdb.d
+      - vol-mysql5a:/var/lib/mysql
+    networks:
+      - platform_integration
+
+  mysql5b:
+    image: mysql:5.7.24
+    env_file:
+      - .env
+    container_name: "${MYSQL5b_HOST}"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: "${MYSQL5b_DATABASE}"
+    ports:
+      - 3307:3306
+    volumes:
+      - ./db/mysql/db.conf.5.x:/etc/mysql/conf.d
+      - ./db/mysql/db.init.5.x/dst:/docker-entrypoint-initdb.d
+      - vol-mysql5b:/var/lib/mysql
+    networks:
+      - platform_integration
+
+  mysql8a:
+    image: mysql:8.0.17
+    env_file:
+      - .env
+    container_name: "${MYSQL8a_HOST}"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: "${MYSQL8a_DATABASE}"
+    ports:
+      - 3316:3306
+    volumes:
+      - ./db/mysql/db.conf.8.x:/etc/mysql/conf.d
+      - ./db/mysql/db.init.8.x/dst:/docker-entrypoint-initdb.d
+      - vol-mysql8a:/var/lib/mysql
+    networks:
+      - platform_integration
+
+  mysql8b:
+    image: mysql:8.0.17
+    env_file:
+      - .env
+    container_name: "${MYSQL8b_HOST}"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: "${MYSQL8b_DATABASE}"
+    ports:
+      - 3317:3306
+    volumes:
+      - ./db/mysql/db.conf.8.x:/etc/mysql/conf.d
+      - ./db/mysql/db.init.8.x/dst:/docker-entrypoint-initdb.d
+      - vol-mysql8b:/var/lib/mysql
+    networks:
+      - platform_integration
+
+
+volumes:
+  vol-mysql5a:
+  vol-mysql5b:
+  vol-mysql8a:
+  vol-mysql8b:
+
+networks:
+  platform_integration:
+    external: true

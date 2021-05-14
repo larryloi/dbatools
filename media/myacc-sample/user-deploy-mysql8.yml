@@ -1,0 +1,39 @@
+DEFAULT_PERMISSIONS: &DEFAULT_PERMISSIONS
+  permissions: ['SELECT', 'INSERT','UPDATE','DELETE']
+
+DEFAULT_HOST: &DEFAULT_HOST
+  host: "%"
+
+DEFAULT_PASSWORD: &DEFAULT_PASSWORD
+  password: "Cc123456"
+
+users_deploy:
+- user:
+    <<: *DEFAULT_HOST
+    <<: *DEFAULT_PASSWORD
+    name: "ops_dbajames"
+    password: "abcd1234"
+    roles:
+      - role: "dba_role"
+      - role: "as_role"
+    default_role: "dba_role"
+    grants:
+      - grant:
+          db: "*"
+          <<: *DEFAULT_PERMISSIONS
+      - grant:
+          db: "dba"
+          permissions: ['ALL']
+
+- user:
+    <<: *DEFAULT_HOST
+    <<: *DEFAULT_PASSWORD
+    name: "ops_asben"
+    roles:
+      - role: "as_role"
+    default_role: "as_role"
+    grants:
+      - grant:
+          db: "rothorn_%"
+          <<: *DEFAULT_PERMISSIONS
+          permissions: ['SELECT']
